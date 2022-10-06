@@ -1,6 +1,6 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { ParamChange } from "./params";
+import { Reader, Writer } from "protobufjs/minimal";
+import { ParamChange } from "../../../cosmos/params/v1beta1/params";
 
 export const protobufPackage = "cosmos.params.v1beta1";
 
@@ -24,8 +24,7 @@ export interface QueryParamsResponse {
  *
  * Since: cosmos-sdk 0.46
  */
-export interface QuerySubspacesRequest {
-}
+export interface QuerySubspacesRequest {}
 
 /**
  * QuerySubspacesResponse defines the response types for querying for all
@@ -48,12 +47,13 @@ export interface Subspace {
   keys: string[];
 }
 
-function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return { subspace: "", key: "" };
-}
+const baseQueryParamsRequest: object = { subspace: "", key: "" };
 
 export const QueryParamsRequest = {
-  encode(message: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
     if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace);
     }
@@ -63,10 +63,10 @@ export const QueryParamsRequest = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): QueryParamsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryParamsRequest();
+    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -85,10 +85,18 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(object: any): QueryParamsRequest {
-    return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : "",
-      key: isSet(object.key) ? String(object.key) : "",
-    };
+    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = String(object.subspace);
+    } else {
+      message.subspace = "";
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = String(object.key);
+    } else {
+      message.key = "";
+    }
+    return message;
   },
 
   toJSON(message: QueryParamsRequest): unknown {
@@ -98,30 +106,39 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(object: I): QueryParamsRequest {
-    const message = createBaseQueryParamsRequest();
-    message.subspace = object.subspace ?? "";
-    message.key = object.key ?? "";
+  fromPartial(object: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
+    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = object.subspace;
+    } else {
+      message.subspace = "";
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    } else {
+      message.key = "";
+    }
     return message;
   },
 };
 
-function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return { param: undefined };
-}
+const baseQueryParamsResponse: object = {};
 
 export const QueryParamsResponse = {
-  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QueryParamsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
     if (message.param !== undefined) {
       ParamChange.encode(message.param, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): QueryParamsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryParamsResponse();
+    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -137,37 +154,46 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return { param: isSet(object.param) ? ParamChange.fromJSON(object.param) : undefined };
+    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
+    if (object.param !== undefined && object.param !== null) {
+      message.param = ParamChange.fromJSON(object.param);
+    } else {
+      message.param = undefined;
+    }
+    return message;
   },
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {};
-    message.param !== undefined && (obj.param = message.param ? ParamChange.toJSON(message.param) : undefined);
+    message.param !== undefined &&
+      (obj.param = message.param
+        ? ParamChange.toJSON(message.param)
+        : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
-    const message = createBaseQueryParamsResponse();
-    message.param = (object.param !== undefined && object.param !== null)
-      ? ParamChange.fromPartial(object.param)
-      : undefined;
+  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
+    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
+    if (object.param !== undefined && object.param !== null) {
+      message.param = ParamChange.fromPartial(object.param);
+    } else {
+      message.param = undefined;
+    }
     return message;
   },
 };
 
-function createBaseQuerySubspacesRequest(): QuerySubspacesRequest {
-  return {};
-}
+const baseQuerySubspacesRequest: object = {};
 
 export const QuerySubspacesRequest = {
-  encode(_: QuerySubspacesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(_: QuerySubspacesRequest, writer: Writer = Writer.create()): Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QuerySubspacesRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): QuerySubspacesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQuerySubspacesRequest();
+    const message = { ...baseQuerySubspacesRequest } as QuerySubspacesRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -180,7 +206,8 @@ export const QuerySubspacesRequest = {
   },
 
   fromJSON(_: any): QuerySubspacesRequest {
-    return {};
+    const message = { ...baseQuerySubspacesRequest } as QuerySubspacesRequest;
+    return message;
   },
 
   toJSON(_: QuerySubspacesRequest): unknown {
@@ -188,28 +215,30 @@ export const QuerySubspacesRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySubspacesRequest>, I>>(_: I): QuerySubspacesRequest {
-    const message = createBaseQuerySubspacesRequest();
+  fromPartial(_: DeepPartial<QuerySubspacesRequest>): QuerySubspacesRequest {
+    const message = { ...baseQuerySubspacesRequest } as QuerySubspacesRequest;
     return message;
   },
 };
 
-function createBaseQuerySubspacesResponse(): QuerySubspacesResponse {
-  return { subspaces: [] };
-}
+const baseQuerySubspacesResponse: object = {};
 
 export const QuerySubspacesResponse = {
-  encode(message: QuerySubspacesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: QuerySubspacesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
     for (const v of message.subspaces) {
       Subspace.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QuerySubspacesResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): QuerySubspacesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQuerySubspacesResponse();
+    const message = { ...baseQuerySubspacesResponse } as QuerySubspacesResponse;
+    message.subspaces = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -225,34 +254,46 @@ export const QuerySubspacesResponse = {
   },
 
   fromJSON(object: any): QuerySubspacesResponse {
-    return {
-      subspaces: Array.isArray(object?.subspaces) ? object.subspaces.map((e: any) => Subspace.fromJSON(e)) : [],
-    };
+    const message = { ...baseQuerySubspacesResponse } as QuerySubspacesResponse;
+    message.subspaces = [];
+    if (object.subspaces !== undefined && object.subspaces !== null) {
+      for (const e of object.subspaces) {
+        message.subspaces.push(Subspace.fromJSON(e));
+      }
+    }
+    return message;
   },
 
   toJSON(message: QuerySubspacesResponse): unknown {
     const obj: any = {};
     if (message.subspaces) {
-      obj.subspaces = message.subspaces.map((e) => e ? Subspace.toJSON(e) : undefined);
+      obj.subspaces = message.subspaces.map((e) =>
+        e ? Subspace.toJSON(e) : undefined
+      );
     } else {
       obj.subspaces = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySubspacesResponse>, I>>(object: I): QuerySubspacesResponse {
-    const message = createBaseQuerySubspacesResponse();
-    message.subspaces = object.subspaces?.map((e) => Subspace.fromPartial(e)) || [];
+  fromPartial(
+    object: DeepPartial<QuerySubspacesResponse>
+  ): QuerySubspacesResponse {
+    const message = { ...baseQuerySubspacesResponse } as QuerySubspacesResponse;
+    message.subspaces = [];
+    if (object.subspaces !== undefined && object.subspaces !== null) {
+      for (const e of object.subspaces) {
+        message.subspaces.push(Subspace.fromPartial(e));
+      }
+    }
     return message;
   },
 };
 
-function createBaseSubspace(): Subspace {
-  return { subspace: "", keys: [] };
-}
+const baseSubspace: object = { subspace: "", keys: "" };
 
 export const Subspace = {
-  encode(message: Subspace, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: Subspace, writer: Writer = Writer.create()): Writer {
     if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace);
     }
@@ -262,10 +303,11 @@ export const Subspace = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Subspace {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): Subspace {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseSubspace();
+    const message = { ...baseSubspace } as Subspace;
+    message.keys = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -284,10 +326,19 @@ export const Subspace = {
   },
 
   fromJSON(object: any): Subspace {
-    return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : "",
-      keys: Array.isArray(object?.keys) ? object.keys.map((e: any) => String(e)) : [],
-    };
+    const message = { ...baseSubspace } as Subspace;
+    message.keys = [];
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = String(object.subspace);
+    } else {
+      message.subspace = "";
+    }
+    if (object.keys !== undefined && object.keys !== null) {
+      for (const e of object.keys) {
+        message.keys.push(String(e));
+      }
+    }
+    return message;
   },
 
   toJSON(message: Subspace): unknown {
@@ -301,10 +352,19 @@ export const Subspace = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Subspace>, I>>(object: I): Subspace {
-    const message = createBaseSubspace();
-    message.subspace = object.subspace ?? "";
-    message.keys = object.keys?.map((e) => e) || [];
+  fromPartial(object: DeepPartial<Subspace>): Subspace {
+    const message = { ...baseSubspace } as Subspace;
+    message.keys = [];
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = object.subspace;
+    } else {
+      message.subspace = "";
+    }
+    if (object.keys !== undefined && object.keys !== null) {
+      for (const e of object.keys) {
+        message.keys.push(e);
+      }
+    }
     return message;
   },
 };
@@ -328,37 +388,45 @@ export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.Subspaces = this.Subspaces.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.params.v1beta1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(
+      "cosmos.params.v1beta1.Query",
+      "Params",
+      data
+    );
+    return promise.then((data) => QueryParamsResponse.decode(new Reader(data)));
   }
 
   Subspaces(request: QuerySubspacesRequest): Promise<QuerySubspacesResponse> {
     const data = QuerySubspacesRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.params.v1beta1.Query", "Subspaces", data);
-    return promise.then((data) => QuerySubspacesResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(
+      "cosmos.params.v1beta1.Query",
+      "Subspaces",
+      data
+    );
+    return promise.then((data) =>
+      QuerySubspacesResponse.decode(new Reader(data))
+    );
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>;
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+type Builtin = Date | Function | Uint8Array | string | number | undefined;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

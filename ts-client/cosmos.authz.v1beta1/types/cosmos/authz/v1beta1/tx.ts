@@ -1,7 +1,7 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import { Reader, Writer } from "protobufjs/minimal";
+import { Grant } from "../../../cosmos/authz/v1beta1/authz";
 import { Any } from "../../../google/protobuf/any";
-import { Grant } from "./authz";
 
 export const protobufPackage = "cosmos.authz.v1beta1";
 
@@ -38,8 +38,7 @@ export interface MsgExec {
 }
 
 /** MsgGrantResponse defines the Msg/MsgGrant response type. */
-export interface MsgGrantResponse {
-}
+export interface MsgGrantResponse {}
 
 /**
  * MsgRevoke revokes any authorization with the provided sdk.Msg type on the
@@ -52,15 +51,12 @@ export interface MsgRevoke {
 }
 
 /** MsgRevokeResponse defines the Msg/MsgRevokeResponse response type. */
-export interface MsgRevokeResponse {
-}
+export interface MsgRevokeResponse {}
 
-function createBaseMsgGrant(): MsgGrant {
-  return { granter: "", grantee: "", grant: undefined };
-}
+const baseMsgGrant: object = { granter: "", grantee: "" };
 
 export const MsgGrant = {
-  encode(message: MsgGrant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MsgGrant, writer: Writer = Writer.create()): Writer {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
@@ -73,10 +69,10 @@ export const MsgGrant = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgGrant {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): MsgGrant {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgGrant();
+    const message = { ...baseMsgGrant } as MsgGrant;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -98,46 +94,70 @@ export const MsgGrant = {
   },
 
   fromJSON(object: any): MsgGrant {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      grant: isSet(object.grant) ? Grant.fromJSON(object.grant) : undefined,
-    };
+    const message = { ...baseMsgGrant } as MsgGrant;
+    if (object.granter !== undefined && object.granter !== null) {
+      message.granter = String(object.granter);
+    } else {
+      message.granter = "";
+    }
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = String(object.grantee);
+    } else {
+      message.grantee = "";
+    }
+    if (object.grant !== undefined && object.grant !== null) {
+      message.grant = Grant.fromJSON(object.grant);
+    } else {
+      message.grant = undefined;
+    }
+    return message;
   },
 
   toJSON(message: MsgGrant): unknown {
     const obj: any = {};
     message.granter !== undefined && (obj.granter = message.granter);
     message.grantee !== undefined && (obj.grantee = message.grantee);
-    message.grant !== undefined && (obj.grant = message.grant ? Grant.toJSON(message.grant) : undefined);
+    message.grant !== undefined &&
+      (obj.grant = message.grant ? Grant.toJSON(message.grant) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgGrant>, I>>(object: I): MsgGrant {
-    const message = createBaseMsgGrant();
-    message.granter = object.granter ?? "";
-    message.grantee = object.grantee ?? "";
-    message.grant = (object.grant !== undefined && object.grant !== null) ? Grant.fromPartial(object.grant) : undefined;
+  fromPartial(object: DeepPartial<MsgGrant>): MsgGrant {
+    const message = { ...baseMsgGrant } as MsgGrant;
+    if (object.granter !== undefined && object.granter !== null) {
+      message.granter = object.granter;
+    } else {
+      message.granter = "";
+    }
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = object.grantee;
+    } else {
+      message.grantee = "";
+    }
+    if (object.grant !== undefined && object.grant !== null) {
+      message.grant = Grant.fromPartial(object.grant);
+    } else {
+      message.grant = undefined;
+    }
     return message;
   },
 };
 
-function createBaseMsgExecResponse(): MsgExecResponse {
-  return { results: [] };
-}
+const baseMsgExecResponse: object = {};
 
 export const MsgExecResponse = {
-  encode(message: MsgExecResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MsgExecResponse, writer: Writer = Writer.create()): Writer {
     for (const v of message.results) {
       writer.uint32(10).bytes(v!);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgExecResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): MsgExecResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgExecResponse();
+    const message = { ...baseMsgExecResponse } as MsgExecResponse;
+    message.results = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -153,32 +173,44 @@ export const MsgExecResponse = {
   },
 
   fromJSON(object: any): MsgExecResponse {
-    return { results: Array.isArray(object?.results) ? object.results.map((e: any) => bytesFromBase64(e)) : [] };
+    const message = { ...baseMsgExecResponse } as MsgExecResponse;
+    message.results = [];
+    if (object.results !== undefined && object.results !== null) {
+      for (const e of object.results) {
+        message.results.push(bytesFromBase64(e));
+      }
+    }
+    return message;
   },
 
   toJSON(message: MsgExecResponse): unknown {
     const obj: any = {};
     if (message.results) {
-      obj.results = message.results.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
+      obj.results = message.results.map((e) =>
+        base64FromBytes(e !== undefined ? e : new Uint8Array())
+      );
     } else {
       obj.results = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgExecResponse>, I>>(object: I): MsgExecResponse {
-    const message = createBaseMsgExecResponse();
-    message.results = object.results?.map((e) => e) || [];
+  fromPartial(object: DeepPartial<MsgExecResponse>): MsgExecResponse {
+    const message = { ...baseMsgExecResponse } as MsgExecResponse;
+    message.results = [];
+    if (object.results !== undefined && object.results !== null) {
+      for (const e of object.results) {
+        message.results.push(e);
+      }
+    }
     return message;
   },
 };
 
-function createBaseMsgExec(): MsgExec {
-  return { grantee: "", msgs: [] };
-}
+const baseMsgExec: object = { grantee: "" };
 
 export const MsgExec = {
-  encode(message: MsgExec, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MsgExec, writer: Writer = Writer.create()): Writer {
     if (message.grantee !== "") {
       writer.uint32(10).string(message.grantee);
     }
@@ -188,10 +220,11 @@ export const MsgExec = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgExec {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): MsgExec {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgExec();
+    const message = { ...baseMsgExec } as MsgExec;
+    message.msgs = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -210,44 +243,60 @@ export const MsgExec = {
   },
 
   fromJSON(object: any): MsgExec {
-    return {
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      msgs: Array.isArray(object?.msgs) ? object.msgs.map((e: any) => Any.fromJSON(e)) : [],
-    };
+    const message = { ...baseMsgExec } as MsgExec;
+    message.msgs = [];
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = String(object.grantee);
+    } else {
+      message.grantee = "";
+    }
+    if (object.msgs !== undefined && object.msgs !== null) {
+      for (const e of object.msgs) {
+        message.msgs.push(Any.fromJSON(e));
+      }
+    }
+    return message;
   },
 
   toJSON(message: MsgExec): unknown {
     const obj: any = {};
     message.grantee !== undefined && (obj.grantee = message.grantee);
     if (message.msgs) {
-      obj.msgs = message.msgs.map((e) => e ? Any.toJSON(e) : undefined);
+      obj.msgs = message.msgs.map((e) => (e ? Any.toJSON(e) : undefined));
     } else {
       obj.msgs = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgExec>, I>>(object: I): MsgExec {
-    const message = createBaseMsgExec();
-    message.grantee = object.grantee ?? "";
-    message.msgs = object.msgs?.map((e) => Any.fromPartial(e)) || [];
+  fromPartial(object: DeepPartial<MsgExec>): MsgExec {
+    const message = { ...baseMsgExec } as MsgExec;
+    message.msgs = [];
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = object.grantee;
+    } else {
+      message.grantee = "";
+    }
+    if (object.msgs !== undefined && object.msgs !== null) {
+      for (const e of object.msgs) {
+        message.msgs.push(Any.fromPartial(e));
+      }
+    }
     return message;
   },
 };
 
-function createBaseMsgGrantResponse(): MsgGrantResponse {
-  return {};
-}
+const baseMsgGrantResponse: object = {};
 
 export const MsgGrantResponse = {
-  encode(_: MsgGrantResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(_: MsgGrantResponse, writer: Writer = Writer.create()): Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgGrantResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): MsgGrantResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgGrantResponse();
+    const message = { ...baseMsgGrantResponse } as MsgGrantResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -260,7 +309,8 @@ export const MsgGrantResponse = {
   },
 
   fromJSON(_: any): MsgGrantResponse {
-    return {};
+    const message = { ...baseMsgGrantResponse } as MsgGrantResponse;
+    return message;
   },
 
   toJSON(_: MsgGrantResponse): unknown {
@@ -268,18 +318,16 @@ export const MsgGrantResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgGrantResponse>, I>>(_: I): MsgGrantResponse {
-    const message = createBaseMsgGrantResponse();
+  fromPartial(_: DeepPartial<MsgGrantResponse>): MsgGrantResponse {
+    const message = { ...baseMsgGrantResponse } as MsgGrantResponse;
     return message;
   },
 };
 
-function createBaseMsgRevoke(): MsgRevoke {
-  return { granter: "", grantee: "", msgTypeUrl: "" };
-}
+const baseMsgRevoke: object = { granter: "", grantee: "", msgTypeUrl: "" };
 
 export const MsgRevoke = {
-  encode(message: MsgRevoke, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MsgRevoke, writer: Writer = Writer.create()): Writer {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
@@ -292,10 +340,10 @@ export const MsgRevoke = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRevoke {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): MsgRevoke {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgRevoke();
+    const message = { ...baseMsgRevoke } as MsgRevoke;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -317,11 +365,23 @@ export const MsgRevoke = {
   },
 
   fromJSON(object: any): MsgRevoke {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : "",
-    };
+    const message = { ...baseMsgRevoke } as MsgRevoke;
+    if (object.granter !== undefined && object.granter !== null) {
+      message.granter = String(object.granter);
+    } else {
+      message.granter = "";
+    }
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = String(object.grantee);
+    } else {
+      message.grantee = "";
+    }
+    if (object.msgTypeUrl !== undefined && object.msgTypeUrl !== null) {
+      message.msgTypeUrl = String(object.msgTypeUrl);
+    } else {
+      message.msgTypeUrl = "";
+    }
+    return message;
   },
 
   toJSON(message: MsgRevoke): unknown {
@@ -332,28 +392,38 @@ export const MsgRevoke = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRevoke>, I>>(object: I): MsgRevoke {
-    const message = createBaseMsgRevoke();
-    message.granter = object.granter ?? "";
-    message.grantee = object.grantee ?? "";
-    message.msgTypeUrl = object.msgTypeUrl ?? "";
+  fromPartial(object: DeepPartial<MsgRevoke>): MsgRevoke {
+    const message = { ...baseMsgRevoke } as MsgRevoke;
+    if (object.granter !== undefined && object.granter !== null) {
+      message.granter = object.granter;
+    } else {
+      message.granter = "";
+    }
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = object.grantee;
+    } else {
+      message.grantee = "";
+    }
+    if (object.msgTypeUrl !== undefined && object.msgTypeUrl !== null) {
+      message.msgTypeUrl = object.msgTypeUrl;
+    } else {
+      message.msgTypeUrl = "";
+    }
     return message;
   },
 };
 
-function createBaseMsgRevokeResponse(): MsgRevokeResponse {
-  return {};
-}
+const baseMsgRevokeResponse: object = {};
 
 export const MsgRevokeResponse = {
-  encode(_: MsgRevokeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(_: MsgRevokeResponse, writer: Writer = Writer.create()): Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRevokeResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): MsgRevokeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgRevokeResponse();
+    const message = { ...baseMsgRevokeResponse } as MsgRevokeResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -366,7 +436,8 @@ export const MsgRevokeResponse = {
   },
 
   fromJSON(_: any): MsgRevokeResponse {
-    return {};
+    const message = { ...baseMsgRevokeResponse } as MsgRevokeResponse;
+    return message;
   },
 
   toJSON(_: MsgRevokeResponse): unknown {
@@ -374,8 +445,8 @@ export const MsgRevokeResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRevokeResponse>, I>>(_: I): MsgRevokeResponse {
-    const message = createBaseMsgRevokeResponse();
+  fromPartial(_: DeepPartial<MsgRevokeResponse>): MsgRevokeResponse {
+    const message = { ...baseMsgRevokeResponse } as MsgRevokeResponse;
     return message;
   },
 };
@@ -406,88 +477,78 @@ export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.Grant = this.Grant.bind(this);
-    this.Exec = this.Exec.bind(this);
-    this.Revoke = this.Revoke.bind(this);
   }
   Grant(request: MsgGrant): Promise<MsgGrantResponse> {
     const data = MsgGrant.encode(request).finish();
     const promise = this.rpc.request("cosmos.authz.v1beta1.Msg", "Grant", data);
-    return promise.then((data) => MsgGrantResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgGrantResponse.decode(new Reader(data)));
   }
 
   Exec(request: MsgExec): Promise<MsgExecResponse> {
     const data = MsgExec.encode(request).finish();
     const promise = this.rpc.request("cosmos.authz.v1beta1.Msg", "Exec", data);
-    return promise.then((data) => MsgExecResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgExecResponse.decode(new Reader(data)));
   }
 
   Revoke(request: MsgRevoke): Promise<MsgRevokeResponse> {
     const data = MsgRevoke.encode(request).finish();
-    const promise = this.rpc.request("cosmos.authz.v1beta1.Msg", "Revoke", data);
-    return promise.then((data) => MsgRevokeResponse.decode(new _m0.Reader(data)));
+    const promise = this.rpc.request(
+      "cosmos.authz.v1beta1.Msg",
+      "Revoke",
+      data
+    );
+    return promise.then((data) => MsgRevokeResponse.decode(new Reader(data)));
   }
 }
 
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>;
 }
 
 declare var self: any | undefined;
 declare var window: any | undefined;
-declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
+  if (typeof globalThis !== "undefined") return globalThis;
+  if (typeof self !== "undefined") return self;
+  if (typeof window !== "undefined") return window;
+  if (typeof global !== "undefined") return global;
   throw "Unable to locate global object";
 })();
 
+const atob: (b64: string) => string =
+  globalThis.atob ||
+  ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
 function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; ++i) {
+    arr[i] = bin.charCodeAt(i);
   }
+  return arr;
 }
 
+const btoa: (bin: string) => string =
+  globalThis.btoa ||
+  ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
+  const bin: string[] = [];
+  for (let i = 0; i < arr.byteLength; ++i) {
+    bin.push(String.fromCharCode(arr[i]));
   }
+  return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+type Builtin = Date | Function | Uint8Array | string | number | undefined;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

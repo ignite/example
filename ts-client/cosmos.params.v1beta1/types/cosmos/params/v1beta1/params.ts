@@ -1,5 +1,5 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.params.v1beta1";
 
@@ -20,12 +20,13 @@ export interface ParamChange {
   value: string;
 }
 
-function createBaseParameterChangeProposal(): ParameterChangeProposal {
-  return { title: "", description: "", changes: [] };
-}
+const baseParameterChangeProposal: object = { title: "", description: "" };
 
 export const ParameterChangeProposal = {
-  encode(message: ParameterChangeProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: ParameterChangeProposal,
+    writer: Writer = Writer.create()
+  ): Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -38,10 +39,13 @@ export const ParameterChangeProposal = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ParameterChangeProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): ParameterChangeProposal {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseParameterChangeProposal();
+    const message = {
+      ...baseParameterChangeProposal,
+    } as ParameterChangeProposal;
+    message.changes = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -63,40 +67,73 @@ export const ParameterChangeProposal = {
   },
 
   fromJSON(object: any): ParameterChangeProposal {
-    return {
-      title: isSet(object.title) ? String(object.title) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      changes: Array.isArray(object?.changes) ? object.changes.map((e: any) => ParamChange.fromJSON(e)) : [],
-    };
+    const message = {
+      ...baseParameterChangeProposal,
+    } as ParameterChangeProposal;
+    message.changes = [];
+    if (object.title !== undefined && object.title !== null) {
+      message.title = String(object.title);
+    } else {
+      message.title = "";
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = String(object.description);
+    } else {
+      message.description = "";
+    }
+    if (object.changes !== undefined && object.changes !== null) {
+      for (const e of object.changes) {
+        message.changes.push(ParamChange.fromJSON(e));
+      }
+    }
+    return message;
   },
 
   toJSON(message: ParameterChangeProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined && (obj.description = message.description);
+    message.description !== undefined &&
+      (obj.description = message.description);
     if (message.changes) {
-      obj.changes = message.changes.map((e) => e ? ParamChange.toJSON(e) : undefined);
+      obj.changes = message.changes.map((e) =>
+        e ? ParamChange.toJSON(e) : undefined
+      );
     } else {
       obj.changes = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ParameterChangeProposal>, I>>(object: I): ParameterChangeProposal {
-    const message = createBaseParameterChangeProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.changes = object.changes?.map((e) => ParamChange.fromPartial(e)) || [];
+  fromPartial(
+    object: DeepPartial<ParameterChangeProposal>
+  ): ParameterChangeProposal {
+    const message = {
+      ...baseParameterChangeProposal,
+    } as ParameterChangeProposal;
+    message.changes = [];
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    } else {
+      message.title = "";
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    } else {
+      message.description = "";
+    }
+    if (object.changes !== undefined && object.changes !== null) {
+      for (const e of object.changes) {
+        message.changes.push(ParamChange.fromPartial(e));
+      }
+    }
     return message;
   },
 };
 
-function createBaseParamChange(): ParamChange {
-  return { subspace: "", key: "", value: "" };
-}
+const baseParamChange: object = { subspace: "", key: "", value: "" };
 
 export const ParamChange = {
-  encode(message: ParamChange, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: ParamChange, writer: Writer = Writer.create()): Writer {
     if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace);
     }
@@ -109,10 +146,10 @@ export const ParamChange = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ParamChange {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: Reader | Uint8Array, length?: number): ParamChange {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseParamChange();
+    const message = { ...baseParamChange } as ParamChange;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -134,11 +171,23 @@ export const ParamChange = {
   },
 
   fromJSON(object: any): ParamChange {
-    return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : "",
-      key: isSet(object.key) ? String(object.key) : "",
-      value: isSet(object.value) ? String(object.value) : "",
-    };
+    const message = { ...baseParamChange } as ParamChange;
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = String(object.subspace);
+    } else {
+      message.subspace = "";
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = String(object.key);
+    } else {
+      message.key = "";
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = String(object.value);
+    } else {
+      message.value = "";
+    }
+    return message;
   },
 
   toJSON(message: ParamChange): unknown {
@@ -149,26 +198,34 @@ export const ParamChange = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ParamChange>, I>>(object: I): ParamChange {
-    const message = createBaseParamChange();
-    message.subspace = object.subspace ?? "";
-    message.key = object.key ?? "";
-    message.value = object.value ?? "";
+  fromPartial(object: DeepPartial<ParamChange>): ParamChange {
+    const message = { ...baseParamChange } as ParamChange;
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = object.subspace;
+    } else {
+      message.subspace = "";
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    } else {
+      message.key = "";
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    } else {
+      message.value = "";
+    }
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+type Builtin = Date | Function | Uint8Array | string | number | undefined;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}
