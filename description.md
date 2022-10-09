@@ -42,7 +42,6 @@ pie
     <td>
         <h2>Jane Doe</h2>
         <h3>Head of Engineering</h3>
-        <a href="https://example.com"><h3>Linkedin</h3></a>
     </td>
  </tr>
  <tr>
@@ -52,7 +51,6 @@ pie
     <td>
         <h2>John Doe</h2>
         <h3>Head of Marketing</h3>
-        <a href="https://example.com"><h3>Linkedin</h3></a>
     </td>
  </tr>
   <tr>
@@ -62,7 +60,6 @@ pie
     <td>
         <h2>Richard Roe</h2>
         <h3>Head of Finance</h3>
-        <a href="https://example.com"><h3>Linkedin</h3></a>
     </td>
  </tr>
 </table>
