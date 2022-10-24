@@ -16,6 +16,9 @@ accounts:
   coins:
   - 200000000foo
   address: cosmos1mgmu4rgnjus8vww86c98lr2qppczw29qhl3hvq
+validators:
+- name: alice
+  bonded: "100000000foo"
 genesis:
   app_state:
     crisis:
