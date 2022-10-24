@@ -1,0 +1,34 @@
+version: 1
+accounts:
+- name: alice
+  coins:
+  - 200000000foo
+  address: cosmos1mhvnathu59er2e72j5wejun4azfl2cmdt4fsu9
+- name: bob
+  coins:
+  - 200000000foo
+  address: cosmos1aq4u6xtud04zv467dnzrt72gef0ujt3uslwxk8
+- name: carol
+  coins:
+  - 200000000foo
+  address: cosmos1qwdwddfdyywrfcndrr5hzpatcctrhuhvezrvdd
+- name: dave
+  coins:
+  - 200000000foo
+  address: cosmos1mgmu4rgnjus8vww86c98lr2qppczw29qhl3hvq
+genesis:
+  app_state:
+    crisis:
+      constant_fee:
+        denom: foo
+    gov:
+      deposit_params:
+        min_deposit:
+        - amount: "1"
+          denom: foo
+    mint:
+      params:
+        mint_denom: foo
+    staking:
+      params:
+        bond_denom: foo
