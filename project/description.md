@@ -1,10 +1,15 @@
 # About the project
 
+![About the Project](images/placeholder_image.png)
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non semper leo. Sed fermentum neque mi, tempus pretium eros pellentesque nec. Cras mauris tellus, efficitur gravida finibus dignissim, dictum eget eros. Nam a consequat neque, a eleifend nulla. Suspendisse ornare interdum augue id condimentum. Morbi porta, elit ut faucibus efficitur, lacus nisi faucibus metus, non tincidunt neque orci et risus. Sed quis mattis turpis.
 
 Ut venenatis dignissim sem, eu condimentum enim elementum non. Sed vitae ante sed ipsum malesuada ornare a porta enim. Sed at ante erat. Nulla cursus, arcu sit amet pretium placerat, tortor metus accumsan nulla, quis vestibulum massa augue et odio.
 
 ## The market
+
+![About the Project](images/placeholder_image.png)
+
 ### Lorem ipsum dolor sit amet
 
 Morbi sit amet est et ante cursus aliquam. Pellentesque fringilla, tellus quis rhoncus porta, mi est ullamcorper erat, et porta nunc neque ut lectus. Quisque suscipit, massa sit amet pretium viverra, arcu magna maximus lorem, mattis vestibulum quam dui a ipsum. Mauris vel magna non ex consequat convallis at vel sem.
@@ -65,7 +70,7 @@ Pre-determined schedule for token distribution
 
 # Team
 
-| ![Team Member 1](images/Team_member_1.png) | ![Team Member 2](images/Team_member_2.png) | ![Team Member 3](images/Team_member_3.png) |
+| ![Team Member 1](images/team_member_1.png) | ![Team Member 2](images/team_member_2.png) | ![Team Member 3](images/team_member_3.png) |
 |:------------------------------------------:|:------------------------------------------:|:------------------------------------------:|
 | **Jane Doe**                               | **John Doe**                               | **Richard Doe**                            |
 | Title                                      | Title                                      | Title                                      |
