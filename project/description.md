@@ -65,8 +65,9 @@ Pre-determined schedule for token distribution
 
 # Team
 
-| ![Team Member 1](images/woman.png) | ![Team Member 2](images/man.png) | ![Team Member 3](images/man2.png) |
-|:----------------------------------:|:--------------------------------:|:---------------------------------:|
-| **Jane Doe**                       | **John Doe**                     | **Richard Doe**                   |
-| Title Head of Engineering          | Title Head of Marketing          | Title Head of Finance             |
+| ![Team Member 1](images/Team_member_1.png) | ![Team Member 2](images/Team_member_2.png) | ![Team Member 3](images/Team_member_3.png) |
+|:------------------------------------------:|:------------------------------------------:|:------------------------------------------:|
+| **Jane Doe**                               | **John Doe**                               | **Richard Doe**                            |
+| Title                                      | Title                                      | Title                                      |
+| Head of Engineering                        | Head of Marketing                          | Head of Finance                            |
 | Bio lorem consequat efficitur iaculis. Nam eu tincidunt nunc. Cras sit amet pulvinar tortor, a porta purususi. Orci varius natoque penatibus. | Bio lorem consequat efficitur iaculis. Nam eu tincidunt nunc. Cras sit amet pulvinar tortor, a porta purususi. Orci varius natoque penatibus. | Bio lorem consequat efficitur iaculis. Nam eu tincidunt nunc. Cras sit amet pulvinar tortor, a porta purususi. Orci varius natoque penatibus. |
