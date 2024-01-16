@@ -3,16 +3,16 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/ignite/example/testutil/keeper"
-	"github.com/ignite/example/x/example/types"
 	"github.com/stretchr/testify/require"
+
+	keepertest "github.com/ignite/example/testutil/keeper"
+	"github.com/ignite/example/x/example/types"
 )
 
 func TestGetParams(t *testing.T) {
-	k, ctx := testkeeper.ExampleKeeper(t)
+	k, ctx := keepertest.ExampleKeeper(t)
 	params := types.DefaultParams()
 
-	k.SetParams(ctx, params)
-
+	require.NoError(t, k.SetParams(ctx, params))
 	require.EqualValues(t, params, k.GetParams(ctx))
 }
