@@ -5,7 +5,7 @@ import (
 
 	keepertest "github.com/ignite/example/testutil/keeper"
 	"github.com/ignite/example/testutil/nullify"
-	"github.com/ignite/example/x/example/module"
+	example "github.com/ignite/example/x/example/module"
 	"github.com/ignite/example/x/example/types"
 	"github.com/stretchr/testify/require"
 )

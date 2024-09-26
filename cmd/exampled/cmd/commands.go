@@ -14,8 +14,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/pruning"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/snapshot"
-	"github.com/cosmos/cosmos-sdk/codec"
-	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/server"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
@@ -31,12 +29,11 @@ import (
 func initRootCmd(
 	rootCmd *cobra.Command,
 	txConfig client.TxConfig,
-	interfaceRegistry codectypes.InterfaceRegistry,
-	appCodec codec.Codec,
 	basicManager module.BasicManager,
 ) {
 	rootCmd.AddCommand(
 		genutilcli.InitCmd(basicManager, app.DefaultNodeHome),
+		NewInPlaceTestnetCmd(addModuleInitFlags),
 		debug.Cmd(),
 		confixcmd.ConfigCommand(),
 		pruning.Cmd(newApp, app.DefaultNodeHome),
