@@ -1,11 +1,11 @@
 syntax = "proto3";
-package example.example;
+package example.example.v1;
 
 import "amino/amino.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "example/example/v1/params.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "cosmos/base/query/v1beta1/pagination.proto";
-import "example/example/params.proto";
 
 option go_package = "github.com/ignite/example/x/example/types";
 
@@ -13,7 +13,7 @@ option go_package = "github.com/ignite/example/x/example/types";
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/ignite/example/example/params";
+    option (google.api.http).get = "/ignite/example/example/v1/params";
   }
 }
 

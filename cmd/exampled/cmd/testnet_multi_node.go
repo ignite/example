@@ -326,7 +326,10 @@ func initTestnetFiles(
 			if err != nil || yes {
 				continue
 			}
-			copyFile(file, gentxsDir)
+			_, err = copyFile(file, gentxsDir)
+			if err != nil {
+				return err
+			}
 		}
 	}
 	err := collectGenFiles(
