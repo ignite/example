@@ -5,16 +5,18 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keepertest "github.com/ignite/example/testutil/keeper"
+	"github.com/ignite/example/x/example/keeper"
 	"github.com/ignite/example/x/example/types"
 )
 
 func TestParamsQuery(t *testing.T) {
-	keeper, ctx := keepertest.ExampleKeeper(t)
-	params := types.DefaultParams()
-	require.NoError(t, keeper.SetParams(ctx, params))
+	f := initFixture(t)
 
-	response, err := keeper.Params(ctx, &types.QueryParamsRequest{})
+	qs := keeper.NewQueryServerImpl(f.keeper)
+	params := types.DefaultParams()
+	require.NoError(t, f.keeper.Params.Set(f.ctx, params))
+
+	response, err := qs.Params(f.ctx, &types.QueryParamsRequest{})
 	require.NoError(t, err)
 	require.Equal(t, &types.QueryParamsResponse{Params: params}, response)
 }

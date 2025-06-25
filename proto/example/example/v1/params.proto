@@ -1,5 +1,5 @@
 syntax = "proto3";
-package example.example;
+package example.example.v1;
 
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
@@ -10,6 +10,4 @@ option go_package = "github.com/ignite/example/x/example/types";
 message Params {
   option (amino.name) = "example/x/example/Params";
   option (gogoproto.equal) = true;
-
-  
 }
