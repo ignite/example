@@ -98,11 +98,9 @@ type App struct {
 	ICAHostKeeper       icahostkeeper.Keeper
 	TransferKeeper      ibctransferkeeper.Keeper
 
-	ExampleKeeper examplemodulekeeper.Keeper
-	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
-
 	// simulation manager
-	sm *module.SimulationManager
+	sm            *module.SimulationManager
+	ExampleKeeper examplemodulekeeper.Keeper
 }
 
 func init() {
